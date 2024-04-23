@@ -1,5 +1,4 @@
 from flask import Blueprint, request, make_response, jsonify
-from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
 from api.database.db_session import create_session
@@ -15,9 +14,13 @@ blueprint: Blueprint = Blueprint(
 
 @blueprint.route("/api/problems", methods=["GET"])
 def problems():  # {
+    """
+    Returns dict with problems of user and his friends.
+    :return: flask response
+    """
     userId: int = int(request.args.get("id"))
     dbSession: Session = create_session()
-    result: dict = dict()
+    result: dict = {}
     try:  # {
         for id_ in list(map(lambda it: it.recipient_id,
                             dbSession.query(Friendship)

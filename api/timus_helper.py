@@ -1,10 +1,13 @@
-import random
-
 from bs4 import BeautifulSoup
 from requests import get
 
 
 def userExist(id_: int) -> bool:  # {
+    """
+    Check if Timus user exist.
+    :param id_: id of Timus user
+    :return: bool
+    """
     response = get(
         "https://acm.timus.ru/author.aspx",
         params={"id": id_, "locale": "en"}
@@ -15,6 +18,11 @@ def userExist(id_: int) -> bool:  # {
 
 
 def getUsername(id_: int) -> str:  # {
+    """
+    Returns Timus user's name.
+    :param id_: id of Timus user
+    :return: str
+    """
     response = get(
         "https://acm.timus.ru/author.aspx",
         params={"id": id_, "locale": "en"}
@@ -30,12 +38,17 @@ def getUsername(id_: int) -> str:  # {
 
 
 def getUsersProblemsDict(id_: int) -> dict:  # {
+    """
+    Return dict with all tasks for Timus user.
+    :param id_: id of Timus user
+    :return: dict
+    """
     response = get(
         "https://acm.timus.ru/author.aspx",
         params={"id": id_, "locale": "en", "sort": "difficulty"}
     )
     soup: BeautifulSoup = BeautifulSoup(response.text, "html.parser")
-    result: dict = dict()
+    result: dict = {}
     for task in soup.find("table", attrs={"class": "attempt_list"}) \
                     .find_all("td"):  # {
         number: int = int(task.text)

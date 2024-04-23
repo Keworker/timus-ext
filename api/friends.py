@@ -14,7 +14,7 @@ blueprint: Blueprint = Blueprint(
 )
 
 
-def createUserIfNotExist(timusId: int, dbSession: Session) -> int:  # {
+def __createUserIfNotExist(timusId: int, dbSession: Session) -> int:  # {
     try:  # {
         return dbSession.query(User).filter(User.timus_id == timusId).one().id_
     # }
@@ -28,7 +28,7 @@ def createUserIfNotExist(timusId: int, dbSession: Session) -> int:  # {
 # }
 
 
-def getFriends(userId: int):  # {
+def __getFriends(userId: int):  # {
     dbSession: Session = create_session()
     try:  # {
         return make_response(
@@ -51,13 +51,13 @@ def getFriends(userId: int):  # {
 # }
 
 
-def addFriend(userId: int, friendId: int):  # {
+def __addFriend(userId: int, friendId: int):  # {
     if (userExist(friendId)):  # {
         dbSession: Session = create_session()
         try:  # {
             friendship = Friendship()
             friendship.sender_id, friendship.recipient_id = userId, \
-                createUserIfNotExist(friendId, dbSession)
+                __createUserIfNotExist(friendId, dbSession)
             dbSession.add(friendship)
             dbSession.commit()
             return make_response(
@@ -83,7 +83,7 @@ def addFriend(userId: int, friendId: int):  # {
 # }
 
 
-def deleteFriend(userId: int, friendId: int):  # {
+def __deleteFriend(userId: int, friendId: int):  # {
     dbSession: Session = create_session()
     try:  # {
         dbSession.execute(Friendship.__table__.delete()
@@ -102,13 +102,13 @@ def deleteFriend(userId: int, friendId: int):  # {
 def friends():  # {
     match request.method:  # {
         case "GET":  # {
-            return getFriends(int(request.args.get("id")))
+            return __getFriends(int(request.args.get("id")))
         # }
         case "POST":  # {
-            return addFriend(int(request.args.get("id")), request.json["friend_timus_id"])
+            return __addFriend(int(request.args.get("id")), request.json["friend_timus_id"])
         # }
         case "DELETE":  # {
-            return deleteFriend(int(request.args.get("id")), request.json["id"])
+            return __deleteFriend(int(request.args.get("id")), request.json["id"])
         # }
     # }
 # }

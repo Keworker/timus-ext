@@ -14,6 +14,10 @@ blueprint: Blueprint = Blueprint(
 
 @blueprint.route("/api/auth", methods=["POST"])
 def auth():  # {
+    """
+    Endpoint for authorisation. Allows only POST method.
+    :return: flask response
+    """
     dbSession: Session = create_session()
     try:  # {
         user = dbSession.query(User).filter(User.timus_id == request.json["timus_id"]).one()
@@ -33,12 +37,10 @@ def auth():  # {
                 201
             )
         # }
-        else:  # {
-            return make_response(
-                jsonify({"error": "No such user."}),
-                404
-            )
-        # }
+        return make_response(
+            jsonify({"error": "No such user."}),
+            404
+        )
     # }
     finally:  # {
         dbSession.close()
