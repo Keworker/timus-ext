@@ -23,7 +23,7 @@ def global_init(db_file):  # {
     if not db_file or not db_file.strip():  # {
         raise FileNotFoundError("Invalid database file.")
     # }
-    conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
+    conn_str = f"sqlite:///{db_file.strip()}?check_same_thread=False"
     engine = orm.create_engine(conn_str, echo=False)
     if not (database_exists(engine.url)):  # {
         create_database(engine.url)

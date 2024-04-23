@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 from requests import get
 
 
+TIMUS_BASE_URL: str = "https://acm.timus.ru/"
+
+
 def userExist(id_: int) -> bool:  # {
     """
     Check if Timus user exist.
@@ -9,7 +12,7 @@ def userExist(id_: int) -> bool:  # {
     :return: bool
     """
     response = get(
-        "https://acm.timus.ru/author.aspx",
+        f"{TIMUS_BASE_URL}author.aspx",
         params={"id": id_, "locale": "en"}
     )
     soup: BeautifulSoup = BeautifulSoup(response.text, "html.parser")
@@ -24,7 +27,7 @@ def getUsername(id_: int) -> str:  # {
     :return: str
     """
     response = get(
-        "https://acm.timus.ru/author.aspx",
+        f"{TIMUS_BASE_URL}author.aspx",
         params={"id": id_, "locale": "en"}
     )
     soup: BeautifulSoup = BeautifulSoup(response.text, "html.parser")
@@ -44,7 +47,7 @@ def getUsersProblemsDict(id_: int) -> dict:  # {
     :return: dict
     """
     response = get(
-        "https://acm.timus.ru/author.aspx",
+        f"{TIMUS_BASE_URL}author.aspx",
         params={"id": id_, "locale": "en", "sort": "difficulty"}
     )
     soup: BeautifulSoup = BeautifulSoup(response.text, "html.parser")
@@ -57,7 +60,7 @@ def getUsersProblemsDict(id_: int) -> dict:  # {
         url: str = task.find("a")["href"]
         result[number] = {
             "name": name,
-            "url": "https://acm.timus.ru/" + url,
+            "url": TIMUS_BASE_URL + url,
             "solution_status": solutionStatus
         }
     # }
