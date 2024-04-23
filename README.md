@@ -11,6 +11,9 @@ Source code consists of two parts:
 - Web directory. In this directory, you can see the website code (returning HTML forms, calling API).
 - API directory. In this directory, you can see routes that parse information from Timus Onine Judge and return it.
 
+I use [Fluent UI design system](https://github.com/microsoft/fluentui/tree/master/) and icons
+from [Fluent System Icons](https://github.com/microsoft/fluentui-system-icons/tree/main/assets).
+
 ## Contributing
 
 If you would like to contribute to this repository,
