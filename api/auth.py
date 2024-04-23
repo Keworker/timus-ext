@@ -2,8 +2,8 @@ from flask import Blueprint, request, jsonify, make_response
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
-from database.db_session import create_session
-from database.user import User
+from api.database.db_session import create_session
+from api.database.user import User
 from timus_helper import userExist
 
 blueprint: Blueprint = Blueprint(
@@ -40,6 +40,12 @@ def auth():  # {
         return make_response(
             jsonify({"error": "No such user."}),
             404
+        )
+    # }
+    except KeyError as e:  # {
+        return make_response(
+            jsonify({"error": e}),
+            400
         )
     # }
     finally:  # {

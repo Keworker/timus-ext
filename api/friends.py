@@ -3,9 +3,9 @@ from sqlalchemy import and_
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
-from database.db_session import create_session
-from database.friendship import Friendship
-from database.user import User
+from api.database.db_session import create_session
+from api.database.friendship import Friendship
+from api.database.user import User
 from timus_helper import getUsername, userExist
 
 blueprint: Blueprint = Blueprint(
@@ -104,15 +104,23 @@ def friends():  # {
     Endpoint to get, post or delete friends.
     :return: flask response
     """
-    match request.method:  # {
-        case "GET":  # {
-            return __getFriends(int(request.args.get("id")))
+    try:  # {
+        match request.method:  # {
+            case "GET":  # {
+                return __getFriends(int(request.args.get("id")))
+            # }
+            case "POST":  # {
+                return __addFriend(int(request.args.get("id")), request.json["friend_timus_id"])
+            # }
+            case "DELETE":  # {
+                return __deleteFriend(int(request.args.get("id")), request.json["id"])
+            # }
         # }
-        case "POST":  # {
-            return __addFriend(int(request.args.get("id")), request.json["friend_timus_id"])
-        # }
-        case "DELETE":  # {
-            return __deleteFriend(int(request.args.get("id")), request.json["id"])
-        # }
+    # }
+    except KeyError as e:  # {
+        return make_response(
+            jsonify({"error": e}),
+            400
+        )
     # }
 # }
