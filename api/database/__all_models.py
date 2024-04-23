@@ -1,3 +1,3 @@
 # pylint: skip-file
-from api.database.user import User
-from api.database.friendship import Friendship
+from user import User
+from friendship import Friendship

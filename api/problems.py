@@ -1,10 +1,10 @@
 from flask import Blueprint, request, make_response, jsonify
 from sqlalchemy.orm import Session
 
-from api.database.db_session import create_session
-from api.database.friendship import Friendship
-from api.database.user import User
-from api.timus_helper import getUsersProblemsDict, getUsername
+from database.db_session import create_session
+from database.friendship import Friendship
+from database.user import User
+from timus_helper import getUsersProblemsDict, getUsername
 
 blueprint: Blueprint = Blueprint(
     "problems_api",

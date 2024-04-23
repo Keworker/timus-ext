@@ -3,7 +3,7 @@ from flask import Flask, make_response, jsonify
 from auth import blueprint as auth_api
 from friends import blueprint as friends_api
 from problems import blueprint as problems_api
-from api.database import db_session
+from database import db_session
 
 app: Flask = Flask(__name__)
 
@@ -24,5 +24,5 @@ if __name__ == '__main__':  # {
     app.register_blueprint(auth_api)
     app.register_blueprint(friends_api)
     app.register_blueprint(problems_api)
-    app.run(debug=True)
+    app.run(port=5005)
 # }

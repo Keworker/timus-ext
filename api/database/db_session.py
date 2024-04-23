@@ -1,10 +1,10 @@
 from typing import Callable
 
-import sqlalchemy as orm
-from sqlalchemy.orm import Session
+import sqlalchemy as sa
+from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy_utils import database_exists, create_database
 
-SqlAlchemyBase = orm.declarative_base()
+SqlAlchemyBase = declarative_base()
 
 # noinspection PyTypeChecker
 __factory: Callable[[], Session] = None
@@ -24,11 +24,11 @@ def global_init(db_file):  # {
         raise FileNotFoundError("Invalid database file.")
     # }
     conn_str = f"sqlite:///{db_file.strip()}?check_same_thread=False"
-    engine = orm.create_engine(conn_str, echo=False)
+    engine = sa.create_engine(conn_str, echo=False)
     if not (database_exists(engine.url)):  # {
         create_database(engine.url)
     # }
-    __factory = orm.sessionmaker(bind=engine)
+    __factory = sa.orm.sessionmaker(bind=engine)
     # noinspection PyUnresolvedReferences,PyPackageRequirements
     from database import __all_models
     SqlAlchemyBase.metadata.create_all(engine)
