@@ -1,7 +1,18 @@
 # timus-ext
-Flask website for users of [Timus Online Judge](https://acm.timus.ru./). 
 
-This is not an official project by Timus Online Judge team. This project is just fansite. 
+Flask website for users of [Timus Online Judge](https://acm.timus.ru./).
+
+This is not an official project by Timus Online Judge team. This project is just fansite.
+
+## Source code
+
+Source code consists of two parts:
+
+- Web directory. In this directory, you can see the website code (returning HTML forms, calling API).
+- API directory. In this directory, you can see routes that parse information from Timus Onine Judge and return it.
+
+I use [Fluent UI design system](https://github.com/microsoft/fluentui/tree/master/) and icons
+from [Fluent System Icons](https://github.com/microsoft/fluentui-system-icons/tree/main/assets).
 
 ## Contributing
 

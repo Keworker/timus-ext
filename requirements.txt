@@ -1,1 +1,6 @@
 Flask==3.0.3
+sqlalchemy==2.0.29
+SQLAlchemy-serializer==1.4.12
+sqlalchemy-utils==0.41.2
+requests==2.31.0
+beautifulsoup4==4.12.3
