@@ -1,6 +1,5 @@
 from typing import Callable
 
-import sqlalchemy as sa
 import sqlalchemy as orm
 from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists, create_database
@@ -25,7 +24,7 @@ def global_init(db_file):  # {
         raise FileNotFoundError("Invalid database file.")
     # }
     conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
-    engine = sa.create_engine(conn_str, echo=False)
+    engine = orm.create_engine(conn_str, echo=False)
     if not (database_exists(engine.url)):  # {
         create_database(engine.url)
     # }

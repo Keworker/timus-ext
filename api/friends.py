@@ -100,6 +100,10 @@ def __deleteFriend(userId: int, friendId: int):  # {
 
 @blueprint.route("/api/friends", methods=["GET", "POST", "DELETE"])
 def friends():  # {
+    """
+    Endpoint to get, post or delete friends.
+    :return: flask response
+    """
     match request.method:  # {
         case "GET":  # {
             return __getFriends(int(request.args.get("id")))
