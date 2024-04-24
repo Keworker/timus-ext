@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from api.database.db_session import create_session
 from api.database.user import User
-from timus_helper import userExist
+from api.timus_helper import userExist
 
 blueprint: Blueprint = Blueprint(
     "auth_api",

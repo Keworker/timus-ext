@@ -10,6 +10,10 @@ API_URL: str = "http://127.0.0.1:5005/api/"
 
 @app.route("/about")
 def about() -> Unit:  # {
+    """
+    Handler for about page.
+    :return: HTML page
+    """
     return render_template(
         "about.html",
         title="About",
@@ -21,6 +25,10 @@ def about() -> Unit:  # {
 
 @app.route("/")
 def baseUrl() -> Unit:  # {
+    """
+    Handler for base URL. Redirect to about page.
+    :return: redirect
+    """
     return redirect(
         "/about",
         308
@@ -30,13 +38,17 @@ def baseUrl() -> Unit:  # {
 
 @app.route("/problems")
 def problems() -> Unit:  # {
+    """
+    Handler for problems page.
+    :return: HTML page
+    """
     if ("id" not in request.args):  # {
         return redirect("/auth")
     # }
     problemsDict = requests.get(f"{API_URL}problems?id={request.args['id']}").json()
     problemsForHtml: list = []
     colorRandomizer: RandomColor = RandomColor()
-    id2color: dict = dict()
+    id2color: dict = {}
     for it in problemsDict.keys():  # {
         id2color[it] = colorRandomizer.generate(luminosity="bright")[0]
     # }
@@ -68,6 +80,10 @@ def problems() -> Unit:  # {
 
 @app.route("/friends")
 def friends() -> Unit:  # {
+    """
+    Handler for friends page.
+    :return: HTML page
+    """
     if ("id" not in request.args):  # {
         return redirect("/auth")
     # }
@@ -84,6 +100,10 @@ def friends() -> Unit:  # {
 
 @app.route("/auth")
 def auth() -> Unit:  # {
+    """
+    Handler for auth page.
+    :return: HTML page
+    """
     return render_template(
         "auth.html",
         title="Authorization",
