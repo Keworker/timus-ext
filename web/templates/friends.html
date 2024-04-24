@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script type="text/javascript">
+        function deleteFriend(id) {
+            const xmlHttp = new XMLHttpRequest();
+            xmlHttp.onload = (e) => {
+                if (xmlHttp.status === 200 || xmlHttp.status === 201)
+                    location.reload();
+            }
+            xmlHttp.open("DELETE", "{{ api }}friends?id={{ id }}")
+            xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify({"id": id}))
+        }
+
+        function addFriend() {
+            const timusId = document.getElementById("timus-id").value;
+            const xmlHttp = new XMLHttpRequest();
+            xmlHttp.onload = (e) => {
+                if (xmlHttp.status === 200 || xmlHttp.status === 201)
+                    location.reload();
+            }
+            xmlHttp.open("POST", "{{ api }}friends?id={{ id }}")
+            xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify({"friend_timus_id": timusId}))
+        }
+    </script>
+    <div style="justify-content: center">
+        <h2 class="text" style="justify-content: center; display: flex">
+            Friends
+        </h2>
+        <div class="centered-layout">
+            <fluent-number-field id="timus-id" value="10000">
+                <a style="color: mintcream; opacity: 0.8">
+                    Timus ID (Judge ID without letters):
+                </a>
+            </fluent-number-field>
+            <br>
+            <fluent-button style="color: mintcream; margin: 12px"
+                           appearance="outline" onclick="addFriend()">
+                Add friend
+            </fluent-button>
+        </div>
+        <fluent-divider style="margin: 12px"></fluent-divider>
+        <div class="centered-layout">
+            <table>
+                {% for it in friends %}
+                    <tr>
+                        <td>
+                            <fluent-button style="color: crimson; margin: 6px"
+                                           onclick="deleteFriend({{ it["id"] }})">
+                                Delete
+                            </fluent-button>
+                        </td>
+                        <td>
+                            <a class="text" style="margin: 6px">
+                                {{ it["name"] }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

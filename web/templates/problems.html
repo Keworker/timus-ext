@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="justify-content: center">
+        <h2 class="text" style="justify-content: center; display: flex">
+            Problems
+        </h2>
+        <div class="centered-layout">
+            <table style="border-collapse: collapse;">
+                {% for it in problems %}
+                    <tr style="border-bottom: 1px solid mintcream">
+                        <td>
+                            <a style="margin: 6px" class="link" target="_blank" href="{{ it["url"] }}">
+                                {{ it["number"] }}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="text" style="margin: 6px">
+                                {{ it["name"] }}
+                            </a>
+                        </td>
+                        <td>
+                            <div>
+                                {% for solver in it["solvers"] %}
+                                    <div style="background-color: {{ solver["color"] }};
+                                            border-radius: 10px; margin: 2px">
+                                        <a style="color: mintcream; margin: 4px; font-size: 75%;">
+                                            {{ solver["name"] }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
