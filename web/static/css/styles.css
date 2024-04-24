@@ -1,0 +1,20 @@
+.header-button {
+    color: mintcream;
+    margin: 12px;
+    font-size: 145%;
+}
+
+.text {
+    color: mintcream;
+    font-family: Calibri, serif;
+}
+
+.link {
+    color: #00ff6f;
+    font-family: Calibri, serif;
+}
+
+.centered-layout {
+    display: flex;
+    justify-content: center;
+}

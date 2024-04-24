@@ -60,7 +60,7 @@ def getUsersProblemsDict(id_: int) -> dict:  # {
         url: str = task.find("a")["href"]
         result[number] = {
             "name": name,
-            "url": TIMUS_BASE_URL + url,
+            "url": TIMUS_BASE_URL + url.replace("status.aspx", "problem.aspx"),
             "solution_status": solutionStatus
         }
     # }

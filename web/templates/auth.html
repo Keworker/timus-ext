@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="centered-layout">
+        <script type="text/javascript">
+            function authorize() {
+                const timusId = document.getElementById("timus-id").value;
+                const xmlHttp = new XMLHttpRequest();
+                xmlHttp.onload = (e) => {
+                    if (xmlHttp.status === 200 || xmlHttp.status === 201)
+                        window.location.href = "/problems?id=" +
+                            JSON.parse(xmlHttp.response)["id_"].toString();
+                }
+                xmlHttp.open("POST", "{{ api }}auth")
+                xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlHttp.send(JSON.stringify({"timus_id": timusId}))
+            }
+        </script>
+        <div style="justify-content: center">
+            <h2 class="text">
+                Authorization
+            </h2>
+            <fluent-number-field id="timus-id" value="10000">
+                <a style="color: mintcream; opacity: 0.8">
+                    Timus ID (Judge ID without letters):
+                </a>
+            </fluent-number-field>
+            <br>
+            <fluent-button style="color: mintcream; margin-top: 12px"
+                           appearance="outline" onclick="authorize()">
+                Authorize
+            </fluent-button>
+        </div>
+    </div>
+{% endblock %}

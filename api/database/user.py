@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer
 from sqlalchemy_serializer import SerializerMixin
 
-from db_session import SqlAlchemyBase
+from api.database.db_session import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase, SerializerMixin):  # {

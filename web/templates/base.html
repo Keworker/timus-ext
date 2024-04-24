@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #36738c">
+<head>
+    <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
+    <link rel="stylesheet" href="{{ static }}/css/styles.css">
+    <link rel="icon" href="{{ static }}/img/favicon.svg">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body class="body" style="height: 100%; background: linear-gradient(#4f3ab0, #36738c);">
+<header class="site-header">
+    <div class="wrapper" style="display:flex; justify-content: center">
+        <fluent-button appearance="outline" class="header-button"
+                {% if id >= 0 %}
+                       onclick="location.href='/about?id={{ id }}'"
+                {% else %}
+                       onclick="location.href='/about'"
+                {% endif %}>
+            About
+        </fluent-button>
+        <fluent-button appearance="outline" class="header-button"
+                {% if id >= 0 %}
+                       onclick="location.href='/problems?id={{ id }}'"
+                {% else %}
+                       onclick="location.href='/problems'"
+                {% endif %}>
+            Problems
+        </fluent-button>
+        <fluent-button appearance="outline" class="header-button"
+                {% if id >= 0 %}
+                       onclick="location.href='/friends?id={{ id }}'"
+                {% else %}
+                       onclick="location.href='/friends'"
+                {% endif %}>
+            Friends
+        </fluent-button>
+    </div>
+</header>
+<div class="body" style="margin: 12px">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,11 +1,13 @@
 from flask import Flask, make_response, jsonify
+from flask_cors import CORS
 
-from auth import blueprint as auth_api
-from friends import blueprint as friends_api
-from problems import blueprint as problems_api
-from database import db_session
+from api.auth import blueprint as auth_api
+from api.friends import blueprint as friends_api
+from api.problems import blueprint as problems_api
+from api.database import db_session
 
 app: Flask = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.errorhandler(404)
