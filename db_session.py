@@ -30,7 +30,7 @@ def global_init(db_file):  # {
     # }
     __factory = sa.orm.sessionmaker(bind=engine)
     # noinspection PyUnresolvedReferences,PyPackageRequirements
-    from database import __all_models
+    import __all_models
     SqlAlchemyBase.metadata.create_all(engine)
 # }
 

@@ -3,10 +3,10 @@ from sqlalchemy import and_
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
-from api.database.db_session import create_session
-from api.database.friendship import Friendship
-from api.database.user import User
-from api.timus_helper import getUsername, userExist
+from db_session import create_session
+from friendship import Friendship
+from user import User
+from timus_helper import getUsername, userExist
 
 blueprint: Blueprint = Blueprint(
     "friends_api",

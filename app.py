@@ -1,11 +1,30 @@
 from typing import NoReturn as Unit
 
+from flask_cors import CORS
 from randomcolor import RandomColor
 import requests
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, make_response, jsonify
+
+from auth import blueprint as auth_api
+from friends import blueprint as friends_api
+from problems import blueprint as problems_api
+import db_session
+
 
 app: Flask = Flask(__name__)
-API_URL: str = "http://127.0.0.1:5005/api/"
+API_URL: str = "https://keworker.pythonanywhere.com/api/"
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+@app.errorhandler(404)
+def notFound(*args):  # {
+    """
+    Handles 404 exception.
+    :param args:
+    :return: flask response
+    """
+    return make_response(jsonify({"error": "Not found", "additional_info": args}), 404)
+# }
 
 
 @app.route("/about")
@@ -115,5 +134,9 @@ def auth() -> Unit:  # {
 
 
 if __name__ == '__main__':  # {
-    app.run(debug=True)
+    db_session.global_init("db/database.sqlite")
+    app.register_blueprint(auth_api)
+    app.register_blueprint(friends_api)
+    app.register_blueprint(problems_api)
+    app.run()
 # }
